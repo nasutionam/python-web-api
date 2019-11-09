@@ -7,6 +7,29 @@ def product_list(request):
     response = JsonResponse(data)
     return response
 
+def product_detail(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+        data = {"products" : {
+            "name": product.name,
+            "manufacture":product.manufacture.name,
+            "description": product.description,
+            "photo":product.photo.url,
+            "price" :product.price,
+        }}
+
+        response = JsonResponse(data)
+    except Product.DoesNotExist:
+        response = JsonResponse({
+            "error": {
+                "code":404,
+                "message": "product not found"
+            }
+        }, status=404)
+    
+    return response
+
+
 # from django.views.generic.detail import DetailView
 # from django.views.generic.list  import ListView
 # class ProductDetailView(DetailView):
