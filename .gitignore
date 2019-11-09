@@ -1,2 +1,3 @@
 venv/*
 onlinestore/__pycache__/*
+onlinestore/uploads/*
